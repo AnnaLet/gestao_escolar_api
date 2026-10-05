@@ -1,0 +1,27 @@
+const pool = require('../config/db');
+
+// Exibir todos os cursos
+const getAllCursos = async () => {
+    const sql = 'SELECT * FROM cursos';
+    const resultado = await pool.query(sql);
+
+    return resultado.rows;
+};
+
+// Buscar curso por ID
+const getCursosByID = async (id) => {
+    const sql = 'SELECT * FROM cursos WHERE id = $1';
+    const resultado = await pool.query(sql, [id]);
+
+    return resultado.rows[0];
+};
+
+// Cadastrar curso
+const createCursos = async (nome, vagas) => {
+    const sql = 'INSERT INTO cursos (nome, vagas) VALUES ($1, $2) RETURNING *';
+    const resultado = await pool.query(sql, [nome, vagas]);
+
+    return resultado.rows[0];
+};
+
+module.exports = {getAllCursos, getCursosByID, createCursos};
