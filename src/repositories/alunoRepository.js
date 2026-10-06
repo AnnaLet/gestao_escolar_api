@@ -17,11 +17,11 @@ const getAlunosByID = async (id) => {
 };
 
 // Cadastrar aluno
-const createAlunos = async (nome, email) => {
+const createAluno = async (nome, email) => {
     const sql = 'INSERT INTO alunos (nome, email) VALUES ($1, $2) RETURNING *';
     const resultado = await pool.query(sql, [nome, email]);
 
     return resultado.rows[0];
 };
 
-module.exports = {getAllAlunos, getAlunosByID, createAlunos};
+module.exports = {getAllAlunos, getAlunosByID, createAluno};

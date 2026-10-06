@@ -17,11 +17,11 @@ const getCursosByID = async (id) => {
 };
 
 // Cadastrar curso
-const createCursos = async (nome, vagas) => {
+const createCurso = async (nome, vagas) => {
     const sql = 'INSERT INTO cursos (nome, vagas) VALUES ($1, $2) RETURNING *';
     const resultado = await pool.query(sql, [nome, vagas]);
 
     return resultado.rows[0];
 };
 
-module.exports = {getAllCursos, getCursosByID, createCursos};
+module.exports = {getAllCursos, getCursosByID, createCurso};
