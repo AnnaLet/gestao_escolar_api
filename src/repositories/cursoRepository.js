@@ -26,21 +26,20 @@ const editarVagas = async (id, vagas) => {
 };
 
 // Verificar vagas no curso 
-const verificarVagas = async (id, vagas) => {
-    const sql = 'SELECT vagas FROM cursos WHERE id = $1';
-    const resultado = await pool.query(sql, [id, vagas]);
-    
-    if(resultado.vagas > 0) {
-        return resultado.rows[0];
-    } else {
-        editarVagas();
-    }
 
-    return resultado.rows[0];
+const verificarVagas = async (id) => {
+    const sql = 'SELECT * FROM cursos WHERE id = $1';
+    const resultado = await pool.query(sql, [id]);
+     console.log (resultado);
+//     if(resultado[0].vagas > 0) {
+//         console.log(resultado[0].vagas);
+//         return true;
+   
+        
+// };
+}
 
-    
-};
-
+verificarVagas(2);
 // Cadastrar curso
 const createCurso = async (nome, vagas) => {
     const sql = 'INSERT INTO cursos (nome, vagas) VALUES ($1, $2) RETURNING *';
