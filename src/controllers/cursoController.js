@@ -11,7 +11,7 @@ const listarCursos = async (req, res) => {
         res.status(500).json({ mensagem:'Error Interno.' });
     }
 };
-getCursosByID
+
 const buscarCursosByID = async (req, res) => {
     try {
         const id = req.params.id;
@@ -28,7 +28,7 @@ const buscarCursosByID = async (req, res) => {
         return res.status(500).json({ mensagem: 'Erro interno no servidor.' });
     }
 };
-nome, vagas 
+
 
 const cadastrarCurso = async (req, res) => {
     try {
@@ -45,3 +45,4 @@ const cadastrarCurso = async (req, res) => {
         return res.status(500).json({ mensagem: 'Erro interno ao cadastrar curso.' });
     }
 };
+module.exports = { listarCursos, buscarCursosByID, cadastrarCurso};
