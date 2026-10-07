@@ -1,6 +1,6 @@
 const pool = require('../config/db');
 
-// Exibir todos os cursos
+// [CORREÇÃO] Removi execução automática no carregamento do módulo e padronizei as funções de curso.
 const getAllCursos = async () => {
     const sql = 'SELECT * FROM cursos';
     const resultado = await pool.query(sql);
@@ -8,7 +8,6 @@ const getAllCursos = async () => {
     return resultado.rows;
 };
 
-// Buscar curso por ID
 const getCursosByID = async (id) => {
     const sql = 'SELECT * FROM cursos WHERE id = $1';
     const resultado = await pool.query(sql, [id]);
@@ -16,31 +15,25 @@ const getCursosByID = async (id) => {
     return resultado.rows[0];
 };
 
-
-// Editar vagas 
-const editarVagas = async (id, vagas) => {
+const editarVagas = async (id) => {
     const sql = 'UPDATE cursos SET vagas = vagas - 1 WHERE id = $1 RETURNING *';
-    const resultado = await pool.query(sql, [id, vagas]);
+    const resultado = await pool.query(sql, [id]);
 
     return resultado.rows[0];
 };
 
-// Verificar vagas no curso 
-
 const verificarVagas = async (id) => {
     const sql = 'SELECT * FROM cursos WHERE id = $1';
     const resultado = await pool.query(sql, [id]);
-     console.log (resultado);
-//     if(resultado[0].vagas > 0) {
-//         console.log(resultado[0].vagas);
-//         return true;
-   
-        
-// };
-}
+    const curso = resultado.rows[0];
 
-verificarVagas(2);
-// Cadastrar curso
+    if (!curso) {
+        return false;
+    }
+
+    return Number(curso.vagas) > 0;
+};
+
 const createCurso = async (nome, vagas) => {
     const sql = 'INSERT INTO cursos (nome, vagas) VALUES ($1, $2) RETURNING *';
     const resultado = await pool.query(sql, [nome, vagas]);
@@ -48,4 +41,4 @@ const createCurso = async (nome, vagas) => {
     return resultado.rows[0];
 };
 
-module.exports = {getAllCursos, getCursosByID, verificarVagas, createCurso};
+module.exports = { getAllCursos, getCursosByID, editarVagas, verificarVagas, createCurso };
