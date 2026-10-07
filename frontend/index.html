@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#10162d">
+    <title>Senac Play — Gestão Educacional</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Alteração: painel interativo que centraliza indicadores e cadastro de alunos, cursos e turmas. -->
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="#" aria-label="Senac Play início">
+                <span class="brand-mark">S<span>+</span></span>
+                <span class="brand-copy"><strong>SENAC<span>PLAY</span></strong><small>GESTÃO EDUCACIONAL</small></span>
+            </a>
+
+            <div class="sidebar-label">MENU PRINCIPAL</div>
+            <nav class="main-nav" aria-label="Menu principal">
+                <button class="nav-link active" data-view="dashboard"><span class="nav-icon">▦</span> Visão geral <span class="nav-arrow">›</span></button>
+                <button class="nav-link" data-view="students"><span class="nav-icon">♟</span> Alunos <span class="nav-arrow">›</span></button>
+                <button class="nav-link" data-view="courses"><span class="nav-icon">▤</span> Cursos <span class="nav-arrow">›</span></button>
+                <button class="nav-link" data-view="classes"><span class="nav-icon">▦</span> Turmas <span class="nav-arrow">›</span></button>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="online-card"><span class="status-dot"></span><span><strong>Sistema online</strong><small>API conectada</small></span><span class="online-signal">●</span></div>
+                <div class="profile"><div class="avatar">SP</div><span><strong>Equipe Senac</strong><small>Administrador</small></span><span class="profile-menu">···</span></div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="pixel-scene" aria-hidden="true">
+                <span class="pixel-star star-one">✦</span><span class="pixel-star star-two">✧</span>
+                <span class="pixel-orb orb-one"></span><span class="pixel-orb orb-two"></span>
+                <span class="pixel-mascot"><i></i><i></i><i></i><i></i><b></b></span>
+                <span class="pixel-runner">▰<i>▰</i></span>
+            </div>
+
+            <header class="topbar">
+                <div class="breadcrumb"><span>ESPAÇO DO GESTOR</span><b>/</b><strong id="breadcrumb-current">VISÃO GERAL</strong></div>
+                <div class="topbar-actions">
+                    <div class="date-chip"><span class="calendar-icon">▣</span><span id="today-label">—</span></div>
+                    <button class="icon-button refresh-button" id="refresh-button" aria-label="Atualizar painel" title="Atualizar painel">↻</button>
+                    <div class="top-avatar">SP</div>
+                </div>
+            </header>
+
+            <div class="content-wrap">
+                <section class="welcome-row">
+                    <div><div class="eyebrow"><span class="eyebrow-dot"></span> SEU CAMPUS, SEU JOGO</div>
+                        <h1 id="page-title">Uma nova fase começa <span>agora.</span></h1>
+                        <p id="page-description">Acompanhe o que acontece no seu espaço educacional.</p>
+                    </div>
+                    <div class="level-chip"><span class="level-icon">✦</span><span><small>SEU NÍVEL</small><strong>GESTOR <em>01</em></strong></span></div>
+                </section>
+
+                <section class="view-panel active" id="view-dashboard">
+                    <div class="stats-grid">
+                        <article class="stat-card orange-card"><div class="stat-top"><span class="stat-label">ALUNOS CADASTRADOS</span><span class="stat-icon icon-orange">♟</span></div><div class="stat-number" id="stat-students">—</div><div class="stat-foot"><span class="stat-indicator">↗</span> Sua comunidade em movimento</div><span class="card-pixel pixel-a"></span></article>
+                        <article class="stat-card blue-card"><div class="stat-top"><span class="stat-label">CURSOS ATIVOS</span><span class="stat-icon icon-blue">▤</span></div><div class="stat-number" id="stat-courses">—</div><div class="stat-foot"><span class="stat-indicator">✦</span> Conhecimento que transforma</div><span class="card-pixel pixel-b"></span></article>
+                        <article class="stat-card purple-card"><div class="stat-top"><span class="stat-label">MATRÍCULAS / TURMAS</span><span class="stat-icon icon-purple">▦</span></div><div class="stat-number" id="stat-classes">—</div><div class="stat-foot"><span class="stat-indicator">↗</span> Jornadas em andamento</div><span class="card-pixel pixel-c"></span></article>
+                        <article class="stat-card green-card"><div class="stat-top"><span class="stat-label">VAGAS DISPONÍVEIS</span><span class="stat-icon icon-green">◇</span></div><div class="stat-number" id="stat-seats">—</div><div class="stat-foot"><span class="stat-indicator">●</span> O próximo passo é seu</div><span class="card-pixel pixel-d"></span></article>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <article class="panel course-panel">
+                            <div class="panel-heading"><div><span class="section-kicker">PORTAL DE APRENDIZAGEM</span><h2>Cursos em destaque</h2></div><button class="text-link" data-go="courses">Ver cursos <span>↗</span></button></div>
+                            <div id="dashboard-courses" class="course-list"><div class="empty-state">Carregando cursos...</div></div>
+                        </article>
+                        <article class="panel quick-panel">
+                            <div class="panel-heading"><div><span class="section-kicker">CENTRAL DE COMANDO</span><h2>Ações rápidas</h2></div><span class="sparkle">✳</span></div>
+                            <button class="quick-action" data-go="students"><span class="quick-icon quick-orange">♟</span><span><strong>Novo aluno</strong><small>Cadastre quem está chegando</small></span><b>↗</b></button>
+                            <button class="quick-action" data-go="courses"><span class="quick-icon quick-blue">▤</span><span><strong>Novo curso</strong><small>Abra uma nova jornada</small></span><b>↗</b></button>
+                            <button class="quick-action" data-go="classes"><span class="quick-icon quick-purple">▦</span><span><strong>Nova turma</strong><small>Conecte aluno e curso</small></span><b>↗</b></button>
+                            <div class="tip-box"><span>✦</span><p><strong>Dica de jogo</strong><br>Confira as vagas antes de iniciar uma nova turma.</p></div>
+                        </article>
+                    </div>
+                    <article class="panel activity-panel"><div class="panel-heading"><div><span class="section-kicker">ÚLTIMAS JORNADAS</span><h2>Turmas recentes</h2></div><button class="text-link" data-go="classes">Ver todas <span>↗</span></button></div><div id="dashboard-classes" class="table-wrap"></div></article>
+                </section>
+
+                <section class="view-panel" id="view-students">
+                    <div class="management-grid">
+                        <article class="panel form-panel"><div class="panel-heading"><div><span class="section-kicker">NOVO PLAYER</span><h2>Cadastrar aluno</h2></div><span class="form-badge">+ XP</span></div>
+                            <p class="form-intro">Adicione um estudante à comunidade Senac.</p>
+                            <form id="student-form" class="entry-form">
+                                <label for="student-name">Nome completo</label><input id="student-name" name="nome" placeholder="Ex.: Ana Silva" required maxlength="120">
+                                <label for="student-email">E-mail</label><input id="student-email" name="email" type="email" placeholder="ana@email.com" required maxlength="180">
+                                <button class="primary-button" type="submit"><span>♟</span> Cadastrar aluno <b>↗</b></button>
+                            </form>
+                        </article>
+                        <article class="panel roster-panel"><div class="panel-heading"><div><span class="section-kicker">SUA COMUNIDADE</span><h2>Alunos cadastrados</h2></div><span class="count-pill" id="student-count">0</span></div><div id="student-list" class="record-list"></div></article>
+                    </div>
+                </section>
+
+                <section class="view-panel" id="view-courses">
+                    <div class="management-grid">
+                        <article class="panel form-panel"><div class="panel-heading"><div><span class="section-kicker">DESBLOQUEIE UM NOVO MAPA</span><h2>Cadastrar curso</h2></div><span class="form-badge">+ XP</span></div>
+                            <p class="form-intro">Crie uma oportunidade e configure a quantidade de vagas.</p>
+                            <form id="course-form" class="entry-form">
+                                <label for="course-name">Nome do curso</label><input id="course-name" name="nome" placeholder="Ex.: Desenvolvimento de Sistemas" required maxlength="140">
+                                <label for="course-seats">Quantidade de vagas</label><input id="course-seats" name="vagas" type="number" min="0" step="1" placeholder="Ex.: 25" required>
+                                <button class="primary-button" type="submit"><span>▤</span> Cadastrar curso <b>↗</b></button>
+                            </form>
+                        </article>
+                        <article class="panel roster-panel"><div class="panel-heading"><div><span class="section-kicker">CATÁLOGO DE APRENDIZAGEM</span><h2>Cursos cadastrados</h2></div><span class="count-pill" id="course-count">0</span></div><div id="course-list" class="record-list"></div></article>
+                    </div>
+                </section>
+
+                <section class="view-panel" id="view-classes">
+                    <div class="management-grid">
+                        <article class="panel form-panel"><div class="panel-heading"><div><span class="section-kicker">FORME SUA PARTY</span><h2>Nova turma</h2></div><span class="form-badge">+ XP</span></div>
+                            <p class="form-intro">Vincule um aluno a um curso para registrar a matrícula.</p>
+                            <form id="class-form" class="entry-form">
+                                <label for="class-student">Aluno</label><select id="class-student" name="aluno_id" required><option value="">Selecione um aluno</option></select>
+                                <label for="class-course">Curso <span class="label-hint">somente com vagas</span></label><select id="class-course" name="curso_id" required><option value="">Selecione um curso</option></select>
+                                <button class="primary-button" type="submit"><span>▦</span> Cadastrar turma <b>↗</b></button>
+                                <p class="form-note">Uma vaga será descontada do curso após o cadastro.</p>
+                            </form>
+                        </article>
+                        <article class="panel roster-panel"><div class="panel-heading"><div><span class="section-kicker">JORNADAS EM ANDAMENTO</span><h2>Turmas cadastradas</h2></div><span class="count-pill" id="class-count">0</span></div><div id="class-list" class="record-list"></div></article>
+                    </div>
+                </section>
+                <footer class="page-footer"><span>FEITO PARA APRENDER, PRONTO PARA JOGAR</span><span>© SENAC PLAY · GESTÃO EDUCACIONAL</span></footer>
+            </div>
+        </main>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js" defer></script>
+</body>
+</html>
